@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Illinois Agland Services Inc. | Schedule an Appointment</title>
+    </h:head>
+    <h:body>
+        <link rel="stylesheet" type="text/css" href="./styles/primary.css"/>
+        
+        <!--Global Header -->
+         <div id="header">
+            <ui:insert name="header" >
+		  <ui:include src="./header.xhtml" />
+            </ui:insert>
+	</div>
+        
+        <h1>Available Times: </h1>
+        <h:form>
+            <h:outputText value="#{times.presentAvailableTimes}" escape="false"/>
+            Select a time: <h:inputText id="timeNumber" value="#{times.timeSelected}"/><br/>
+            Email Address: <h:inputText id="groupName" value="#{times.groupName}"/>
+            <h:commandButton id="submitID" value="Submit" action="#{times.removeTimes()}"/><br/><br/>
+            <h:outputText value="#{times.errorCode}" />
+        </h:form>
+    </h:body>
+</html>

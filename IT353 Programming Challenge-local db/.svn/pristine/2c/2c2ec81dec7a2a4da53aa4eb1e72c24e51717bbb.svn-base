@@ -1,0 +1,117 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package DAO;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import model.ListingBean;
+import model.PropertyBean;
+
+/**
+ *
+ * @author root
+ */
+public class ListingDAO 
+{
+    public static void postListing(ListingBean listing)
+    {
+        Connection dbConnection = ConnectionManager.getNewConnection();
+        try
+        {
+            Statement stmt = dbConnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            //get last listing id
+            String query = "Select ListingID From Project.Listings";
+            ResultSet rs = stmt.executeQuery(query);
+            rs.last();
+            int id = rs.getInt("ListingID")+1;   //next listing id
+            String insertListing = "Insert into project.listings (PropertyID, OwnerID, Title, Price, Tax, ListingDate) "
+                                 + "Values("
+                                 + listing.getPropertyID() + ", \'" + listing.getOwnerID() 
+                                 + "\', \'" + listing.getTitle() + "\', " + listing.getPrice() 
+                                 + ", " + listing.getTax() + ", \'" + listing.getListingDate() + "\')";
+
+            boolean insertSuccessful = stmt.execute(insertListing);
+            System.out.println(insertSuccessful);
+
+
+
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e.getMessage());
+        }
+    }
+   
+    public static ListingBean getListing(String listingID)
+    {
+        Connection dbConnection = ConnectionManager.getNewConnection();
+        try
+        {
+            Statement stmt;
+            stmt = dbConnection.createStatement();
+
+            String queryString = "Select * From Project.Listings WHERE listingID = "+listingID;
+            System.out.println(queryString);   
+            
+            ResultSet results = stmt.executeQuery(queryString);   //execute insert
+            
+            ListingBean temp = null;
+            
+            if(results.next())   //read from result set
+            {
+                temp = new ListingBean();
+
+                temp.setListingID(results.getInt("listingID"));
+                temp.setPropertyID(results.getInt("propertyID"));
+                temp.setOwnerID(results.getString("ownerID"));
+                temp.setTitle(results.getString("title"));
+                temp.setPrice(results.getDouble("price"));
+                temp.setTax(results.getDouble("tax"));
+                temp.setListingDate(results.getTimestamp("listingDate"));
+            }
+            
+            stmt.close();
+            dbConnection.close();   //close connection
+            
+            return temp;
+       }
+       catch(SQLException e)
+       {
+           System.err.println(e.getMessage());
+           return null;
+       }
+   }
+    
+    public static boolean removeListing(int ListingID)
+    {
+        Connection dbConnection = ConnectionManager.getNewConnection();
+        try
+        {
+            Statement stmt;
+            stmt = dbConnection.createStatement();
+
+            String removeString = "Delete From Project.Listings WHERE listingID = "+ListingID;  
+            
+            int rows = stmt.executeUpdate(removeString);   //execute insert
+            
+          
+            stmt.close();
+            dbConnection.close();   //close connection
+            
+            return true;
+       }
+       catch(SQLException e)
+       {
+           System.err.println(e.getMessage());
+           return false;
+       }
+    }
+}

@@ -1,0 +1,181 @@
+package controller;
+
+import DAO.SearchDAO;
+import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
+import model.ListingBean;
+
+import model.SearchBean;
+
+
+/**
+ * Brandon Salm and Jeremy Ber
+ * @author bmsalm
+ */
+@ManagedBean
+@ViewScoped
+public class SearchController implements Serializable
+{
+    private String searchResults;
+    private SearchBean theModel;
+    ArrayList<ListingBean> results; 
+    
+    //bean contructors
+    public SearchController() { 
+        theModel = new SearchBean();     //new listing object
+        results = null;
+    }
+    
+    //property bean functions
+    public SearchBean getTheModel() {
+        return theModel;
+    }
+    public void setTheModel(SearchBean theModel) {
+        this.theModel = theModel;
+    }
+    
+    //response
+    public String getSearchResults() {
+        return searchResults;
+    }
+    public void setSearchResults(String setSearchResults) {
+        //this.searchResults = setSearchResults;
+    }
+    
+    
+    //search function via AJAX
+    public void search(AjaxBehaviorEvent event) { 
+       searchResults = "Loading...";
+       
+       results = SearchDAO.searchProperties(theModel);
+       
+       if(results == null){
+           searchResults = "Could not process request... Try again later.";
+       }
+       
+       else
+       {
+           String str = "";
+           ListingBean temp;
+           DecimalFormat formatUSD = new DecimalFormat("#.##");
+           
+           theModel.setResultsPerPage(4);
+           int i = 0;
+           while(i < theModel.getResultsPerPage() && i < results.size())
+           {
+               temp = results.get(i);
+               str+= "<div id=\"listing"+i+"\" class=\"results\" >"+
+                       "<b>"+temp.getTitle()+":</b><br/>"+
+                       "Price Per Acre: $"+formatUSD.format(temp.getPrice())+"<br/>"+
+                       "Property Tax: $"+formatUSD.format(temp.getTax())+"<br/>"+
+                       "Listing Date: "+temp.getListingDate()+"<br/>"+
+                       "</div><br/>";
+               i++;
+               theModel.setSearchIndex(i);
+           }
+
+           if(str.equals("")){
+               str = "No results found.";
+               theModel.setSearchIndex(0);
+           }
+           searchResults = str; 
+       }
+    }
+    
+    public void nextPage(AjaxBehaviorEvent event)
+    {
+        //search hasnt been ran yet, still null
+        if(results == null) 
+            return;
+        
+        //see if current searching index is within legal bounds
+        if(theModel.getSearchIndex() >= results.size())
+            return;
+        
+        String str = "";
+        ListingBean temp;
+        DecimalFormat formatUSD = new DecimalFormat("#.##");
+        
+        int index = theModel.getSearchIndex();
+        int bound = theModel.getSearchIndex() + theModel.getResultsPerPage();
+        theModel.setSearchIndex(bound);
+        
+        while(index < bound && index < results.size())
+        {
+            temp = results.get(index);
+            str+= "<div id=\"listing"+index+"\" class=\"results\" >"+
+                    "<b>"+temp.getTitle()+":</b><br/>"+
+                    "Price Per Acre: $"+formatUSD.format(temp.getPrice())+"<br/>"+
+                    "Property Tax: $"+formatUSD.format(temp.getTax())+"<br/>"+
+                    "Listing Date: "+temp.getListingDate()+"<br/>"+
+                    "</div><br/>";
+            
+            index++;
+        }
+        
+        if(str.equals("")){
+            str = "No results found.";
+        }
+        
+        searchResults = str;
+    }
+    
+    public void prevPage()
+    {
+        //search hasnt been ran yet, still null
+        if(results == null) 
+            return;
+        
+//        //see if current searching index is within legal bounds
+//        if(theModel.getSearchIndex() <= 0)
+//            return;
+        
+        String str = "";
+        ListingBean temp;
+        DecimalFormat formatUSD = new DecimalFormat("#.##");
+        
+        //calculate display bounds
+        int index = theModel.getSearchIndex() - (2*theModel.getResultsPerPage());
+        if(index <= 0) index = 0;
+        
+        int bound = index + theModel.getResultsPerPage();
+        
+        while(index < bound && index < results.size())
+        {
+            temp = results.get(index);
+            str+= "<div id=\"listing"+index+"\" class=\"results\" >"+
+                    "<b>"+temp.getTitle()+":</b><br/>"+
+                    "Price Per Acre: $"+formatUSD.format(temp.getPrice())+"<br/>"+
+                    "Property Tax: $"+formatUSD.format(temp.getTax())+"<br/>"+
+                    "Listing Date: "+temp.getListingDate()+"<br/>"+
+                    "</div><br/>";
+            
+            index++;
+            theModel.setSearchIndex(index);
+        }
+        
+        if(str.equals("")){
+            str = "No results found.";
+        }
+        
+        searchResults = str;
+    }
+
+
+    
+        public static void main(String [] args)
+        {
+            
+        }
+
+   
+
+}
+
+  
+
+   

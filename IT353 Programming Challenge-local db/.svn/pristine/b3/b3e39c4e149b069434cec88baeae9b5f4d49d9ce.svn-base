@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Illinois Agland Services Inc. | Welcome!</title>
+    </h:head>
+    <h:body>
+        
+        <!--global header-->
+        <div id="header">
+            <ui:insert name="header" >
+		  <ui:include src="./header.xhtml" />
+            </ui:insert>
+	</div>
+        
+        <link rel="stylesheet" type="text/css" href="./styles/primary.css" />
+        <div class="homepage">
+            <table id="table">
+            <tr>
+                <td id="menu" style="width:20%;" valign="top" bgcolor="#cfdffa">
+                    <div align="center">
+                    <h4>Please select a portal.</h4>
+                    <a href="./signup.xhtml" id="menu-item">
+                        <div align="left">&#215; Sign Up</div></a>
+                    <a href="./login.xhtml" id="menu-item">
+                        <div align="left">&#215; Login</div></a>
+                    <a href="./search.xhtml" id="menu-item">
+                        <div align="left">&#215; Search Listings</div></a>
+                    <a href="./scheduleappointment.xhtml" id ="menu-item">
+                        <div align="left">&#215; Schedule Appointment</div></a>
+                    <h:outputText escape="false" value="#{userController.listingLink}"/>
+                    <h:outputText escape="false" value="#{userController.newsletter}"/>
+                    <h:outputText escape="false" value="#{userController.updateListing}"/>
+                    </div>
+                </td>
+                <td valign="top" style="padding-left: 5px">
+                    <h1 align="center" style="color: #3a73a6">Welcome to Illinois Agland Services Inc!</h1>
+                    
+                    <hr/>
+                    <h2 align="Left" style="color: #3a73a6">News</h2>
+                    <h4 align="center">
+                        <p>Please select a portal on the left to begin. Without an account, you can search through the listings, but to post your own, you need to login or sign up.</p>
+                    </h4>
+                    
+                    <hr/>
+                    <h2 align="Left" style="color: #3a73a6">Featured listing:</h2>
+                    <h4 align="center">
+                        <p><h:outputText id="result" escape = "false" value="#{searchController.featuredListing}"/></p>
+                    </h4>
+                </td>
+            </tr>
+            </table>
+        </div>
+        
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <div id="footer">
+            <ui:insert name="footer" >
+		  <ui:include src="./footer.xhtml" />
+            </ui:insert>
+	</div>
+    </h:body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Illinois Agland Services Inc. | Create New Profile</title>
+    </h:head>
+    <h:body>
+        
+     
+        
+        
+        <link rel="stylesheet" type="text/css" href="./styles/login.css"/>
+        <!--global header-->
+        <div id="header">
+            <ui:insert name="header" >
+          <ui:include src="./header.xhtml" />
+            </ui:insert>
+    </div>
+        <div class="loginMain" align="center">
+            <div class="loginPanel" align="center">
+            <h2 id="title">Check Out</h2>
+            
+            <h:form>
+                <h:dataTable value ="#{userController.theCartModel.items}" var="items">
+                    <h:column>
+                        <div align="left"><f:facet name="header"><u>Title</u></f:facet>
+                        <br/>#{items.title}</div>
+                    </h:column>
+                  <h:column>
+                      <f:facet name="header"><u>Price</u></f:facet>
+                      <div align="left"><br/>$#{items.price}</div>
+                  </h:column>
+                  <h:column>
+                      <f:facet name="header"><u>Remove Item</u></f:facet>
+                        <h:form>
+                            <input type ="hidden" value="#{userController.theUserModel.username}" name ="username"/>
+                            <input type ="hidden" value="#{items.listingID}" name="listingID"/>
+                            <div align="left"><br/><h:commandButton id="remove" value ="Remove" action="#{userController.removeItemFromCart()}"/></div>
+                        </h:form>
+                  </h:column>
+              </h:dataTable>
+              <br></br>
+              <h:outputText id="totalPrice" value="#{userController.theCartModel.addUpPrices()}"/><br/>
+              <h:commandButton id="purchase" value="Purchase" action="#{userController.checkout()}"/>
+              
+            </h:form>
+            
+            </div>
+        </div>
+    </h:body>
+</html>

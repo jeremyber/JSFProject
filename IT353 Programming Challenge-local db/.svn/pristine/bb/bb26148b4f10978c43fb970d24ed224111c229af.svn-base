@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>Illinois Agland Services Inc. | Search Listings</title>
+    </h:head>
+    
+    <h:body>
+        
+        <!--global header-->
+        <div id="header">
+            <ui:insert name="header" >
+		  <ui:include src="./header.xhtml" />
+            </ui:insert>
+	</div>
+        <div class="site" align="center">
+            <link rel="stylesheet" type="text/css" href="./styles/search.css"/>
+            <h:form id="searchForm">
+            <div class="form"><b>
+                <font size="5">
+                <u>Enter Search Criteria</u><br/><br/><br/>
+                </font>
+                Listing Title: <h:inputText id="searchTerm" value="#{searchController.theSearchModel.searchTerm}">
+                </h:inputText> &nbsp; &nbsp; &nbsp; &nbsp;
+                Min. Price: $<h:inputText id="minPrice" value="#{searchController.theSearchModel.minPrice}">
+                </h:inputText> &nbsp; &nbsp; &nbsp; &nbsp;
+                Max. Price: $<h:inputText id="maxPrice" value="#{searchController.theSearchModel.maxPrice}">
+                </h:inputText><br/><br/>
+                
+                City: <h:inputText id="searchCity" value="#{searchController.theSearchModel.searchCity}">
+                </h:inputText> &nbsp; &nbsp; &nbsp; &nbsp;
+
+                State: <h:selectOneMenu id="searchState" value="#{searchController.theSearchModel.searchState}">
+                    <f:selectItem itemLabel="Select a State..." itemValue="" />
+                    <f:selectItem itemLabel="Alabama"       itemValue="AL" />
+                    <f:selectItem itemLabel="Alaska"        itemValue="AK" />
+                    <f:selectItem itemLabel="Arizona"       itemValue="AZ" />
+                    <f:selectItem itemLabel="Arkansas"      itemValue="AR" />
+                    <f:selectItem itemLabel="California"    itemValue="CA" />
+                    <f:selectItem itemLabel="Colorado"      itemValue="CO" />
+                    <f:selectItem itemLabel="Connecticut"   itemValue="CT" />
+                    <f:selectItem itemLabel="Delaware"      itemValue="DE" />
+                    <f:selectItem itemLabel="Florida"       itemValue="FL" />
+                    <f:selectItem itemLabel="Georgia"       itemValue="GA" />
+                    <f:selectItem itemLabel="Hawaii"        itemValue="HI" />
+                    <f:selectItem itemLabel="Idaho"         itemValue="ID" />
+                    <f:selectItem itemLabel="Illinois"      itemValue="IL" />
+                    <f:selectItem itemLabel="Indiana"       itemValue="IN" />
+                    <f:selectItem itemLabel="Iowa"          itemValue="IA" />
+                    <f:selectItem itemLabel="Kansas"        itemValue="KS" />
+                    <f:selectItem itemLabel="Kentucky"      itemValue="KY" />
+                    <f:selectItem itemLabel="Louisiana"     itemValue="LA" />
+                    <f:selectItem itemLabel="Maine"         itemValue="ME" />
+                    <f:selectItem itemLabel="Maryland"      itemValue="MD" />
+                    <f:selectItem itemLabel="Massachusetts" itemValue="MA" />
+                    <f:selectItem itemLabel="Michigan"      itemValue="MI" />
+                    <f:selectItem itemLabel="Minnesota"     itemValue="MN" />
+                    <f:selectItem itemLabel="Mississippi"   itemValue="MS" />
+                    <f:selectItem itemLabel="Missouri"      itemValue="MO" />
+                    <f:selectItem itemLabel="Montana"       itemValue="MT" />
+                    <f:selectItem itemLabel="Nebraska"      itemValue="NE" />
+                    <f:selectItem itemLabel="Nevada"        itemValue="NV" />
+                    <f:selectItem itemLabel="New Hampshire" itemValue="NH" />
+                    <f:selectItem itemLabel="New Jersey"    itemValue="NJ" />
+                    <f:selectItem itemLabel="New Mexico"    itemValue="NM" />
+                    <f:selectItem itemLabel="New York"      itemValue="NY" />
+                    <f:selectItem itemLabel="North Carolina" itemValue="NC" />
+                    <f:selectItem itemLabel="North Dakota"  itemValue="ND" />
+                    <f:selectItem itemLabel="Ohio"          itemValue="OH" />
+                    <f:selectItem itemLabel="Oklahoma"      itemValue="OK" />
+                    <f:selectItem itemLabel="Oregon"        itemValue="OR" />
+                    <f:selectItem itemLabel="Pennsylvania"  itemValue="PA" />
+                    <f:selectItem itemLabel="Rhode Island"  itemValue="RI" />
+                    <f:selectItem itemLabel="South Carolina" itemValue="SC" />
+                    <f:selectItem itemLabel="South Dakota"  itemValue="SD" />
+                    <f:selectItem itemLabel="Tennessee"     itemValue="TN" />
+                    <f:selectItem itemLabel="Texas"         itemValue="TX" />
+                    <f:selectItem itemLabel="Utah"          itemValue="UT" />
+                    <f:selectItem itemLabel="Vermont"       itemValue="VT" />
+                    <f:selectItem itemLabel="Virginia"      itemValue="VA" />
+                    <f:selectItem itemLabel="Washington"    itemValue="WA" />
+                    <f:selectItem itemLabel="West Virginia" itemValue="WV" />
+                    <f:selectItem itemLabel="Wisconsin"     itemValue="WI" />
+                    <f:selectItem itemLabel="Wyoming"       itemValue="WY" />
+                </h:selectOneMenu> &nbsp; &nbsp; &nbsp; &nbsp;
+                Zip Code: <h:inputText id="searchZip" value="#{searchController.theSearchModel.searchZip}">
+                </h:inputText><br/><br/>
+                </b>
+                <h:commandButton id="search" value="Search">
+                    <f:ajax event="click" execute="searchForm" render="result" listener="#{searchController.search}"/> 
+                </h:commandButton>
+                
+                <br/><br/>
+                
+                <h:commandLink id="prev"  value="&#60;&#60; prev">
+                    <f:ajax event="click" render="result" listener="#{searchController.prevPage}"/>
+                </h:commandLink> 
+                    <b> || </b> 
+                <h:commandLink id="next"  value="next &#62;&#62;">
+                    <f:ajax event="click" render="result" listener="#{searchController.nextPage}"/>
+                </h:commandLink>
+
+                </div><br/>
+                
+                <div align="left">
+                    <h:outputLabel id="result" escape="false" value="#{searchController.searchResults}"/>
+                </div>
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

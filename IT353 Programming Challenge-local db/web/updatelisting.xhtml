@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Illinois Agland Services Inc. | Create New Profile</title>
+    </h:head>
+    <h:body>
+        
+     
+        
+        
+        <link rel="stylesheet" type="text/css" href="./styles/primary.css"/>
+        <!--global header-->
+        <div id="header">
+            <ui:insert name="header" >
+          <ui:include src="./header.xhtml" />
+            </ui:insert>
+    </div>
+        <div class="newsletter">
+            <h1>Which listing do you want to update?</h1>
+            <h:dataTable value ="#{propertyController.theListings}" var="items">
+                    <h:column>
+                        <f:facet name="title">Listings</f:facet>
+                        #{items.title}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="remove_items">Update Listing</f:facet>
+                        <h:form>
+                             <input type ="hidden" value="#{items.propertyID}" name="property" />
+                            <input type ="hidden" value="#{items.listingID}" name ="listing"/>
+                            <h:commandButton value ="Update Listing" action="#{propertyController.updateListing()}"/>
+                        </h:form>
+
+                    </h:column>
+              </h:dataTable>
+            <h:outputText value="#{userController.newsletterValidation}"/>
+        </div>
+    </h:body>
+</html>

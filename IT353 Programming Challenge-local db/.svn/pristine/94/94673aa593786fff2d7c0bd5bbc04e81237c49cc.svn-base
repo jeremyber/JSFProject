@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Illinois Agland Services Inc. | Create New Profile</title>
+    </h:head>
+    <h:body>
+        <link rel="stylesheet" type="text/css" href="./styles/primary.css"/>
+        <!--global header-->
+        <div id="header">
+            <ui:insert name="header" >
+		  <ui:include src="./header.xhtml" />
+            </ui:insert>
+	</div>
+        <div class="site" align="center">
+            <h:form id="registrationForm">
+            <div class="regPanel" align="center">
+                <h2 id="title">Create Profile</h2>
+                <div align="left"><span id="regLabel">Username: </span>
+                <h:inputText id="userhameID" value="#{signupController.theUserModel.username}">
+                    <f:ajax event="keyup" render="availability" execute ="registrationForm" listener="#{signupController.validateUsername}"/>
+                </h:inputText> 
+                <h:outputText id="availability" escape="false" value="#{signupController.usernameAvailability}"/>
+                </div><br/>
+                <div align="left"><span id="regLabel">Password: </span>
+                <h:inputText id="passID" value="#{signupController.theLoginModel.password}">
+                </h:inputText>
+                </div><br/>
+                <div align="left"><span id="regLabel">Re-Enter Password: </span>
+                <h:inputText id="repassID" value="#{signupController.confirmationPassword}">
+                </h:inputText>    
+                </div><br/>
+                <div align="left"><span id="regLabel">Email: </span>
+                <h:inputText id="emailID" value="#{signupController.theUserModel.email}">
+                </h:inputText>
+                </div><br/>
+                <div align="left"><span id="regLabel">Re-Enter Email: </span>
+                <h:inputText id="reemailID" value="#{signupController.confirmationEmail}">
+                </h:inputText>
+                </div><br/>
+                <div align="left"><span id="regLabel">First Name: </span>
+                <h:inputText id="firsnameID" value="#{signupController.theUserModel.firstname}">
+                </h:inputText>
+                </div><br/>
+                <div align="left"><span id="regLabel">Last Name: </span>
+                <h:inputText id="lastnameID" value="#{signupController.theUserModel.lastname}">
+                </h:inputText>
+                </div><br/>
+                <div align="left"><span id="regLabel">Security Question: </span>
+                <h:inputText id="questionID" value="#{signupController.theLoginModel.securityq}">
+                </h:inputText>                    
+                </div><br/>
+                <div align="left"><span id="regLabel">Security Answer: </span>
+                <h:inputText id="answerID" value="#{signupController.theLoginModel.securitya}">
+                </h:inputText>                    
+                </div><br/>
+                <h:commandButton id="submitID" value="Submit" action="echosignup.xhtml"/>
+            </div>
+            </h:form>
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Illinois Agland Services Inc. | Login to Continue</title>
+    </h:head>
+    <h:body>
+        <link rel="stylesheet" type="text/css" href="./styles/primary.css"/>
+        <!--global header-->
+        <div id="header">
+            <ui:insert name="header" >
+		  <ui:include src="./header.xhtml" />
+            </ui:insert>
+	</div>
+        <div class="site" align="center">
+            <h:form id="loginForm">
+            <div class="loginPanel" align="center">
+                <h2 id="title">Login</h2>
+                <div align="left"><span id="label">Username: </span>
+                <h:inputText id="nameID" value="#{userController.theLoginModel.username}">
+                </h:inputText></div><br/>
+                <div align="left"><span id="label">Password: </span>
+                <h:inputSecret id="password" value="#{userController.theLoginModel.password}">
+                </h:inputSecret></div><br/><br/>
+                <h:commandButton id="submitID" value="Submit" action="#{userController.Login()}"/>
+            </div>
+            <br/>
+                <font size="2">
+                | <h:commandLink class="loginPanel" id="signUpID" value="sign-up here" action="./signup.xhtml"/> |<br/>
+                | <h:commandLink class="loginPanel" id="forgotPassword" value="forgot password" action="./retrievepassword.xhtml" /> |<br/>
+                </font>
+            </h:form>            
+        </div>
+    </h:body>
+</html>

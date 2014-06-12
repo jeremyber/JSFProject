@@ -1,0 +1,103 @@
+package DAO;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author it3530103
+ */
+public class ScheduleDAO 
+{
+    
+    public static ArrayList<Boolean> findAvailableTimes()     
+    {
+        ArrayList<Boolean> availableTimes = new ArrayList<Boolean>();
+           try 
+           {
+                Class.forName("org.apache.derby.jdbc.ClientDriver");
+            } 
+           catch (ClassNotFoundException e) 
+            {
+                System.err.println(e.getMessage());
+                System.exit(0);
+            }
+
+            
+            try 
+            {
+                String myDB = "jdbc:derby://localhost:1527/Times";
+                Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+         
+
+                String query;
+                Statement stmt = DBConn.createStatement();
+               query = "Select * From Itkstu.Schedule";
+                ResultSet rs = stmt.executeQuery(query);
+                
+                while(rs.next())
+                {
+                    if(rs.getString("GroupName").equals(""))
+                        availableTimes.add(true);
+                    else
+                        availableTimes.add(false);
+                }
+                
+                
+            } 
+            catch (SQLException e) 
+            {
+                System.err.println(e.getMessage());
+            }
+            return availableTimes;
+               
+            
+    
+    
+       }
+    
+    public static void removeTime(String timeToRemove, String groupName)
+    {
+       
+          try 
+           {
+                Class.forName("org.apache.derby.jdbc.ClientDriver");
+            } 
+           catch (ClassNotFoundException e) 
+            {
+                System.err.println(e.getMessage());
+                System.exit(0);
+            }
+
+            
+            try 
+            {
+              
+                String myDB = "jdbc:derby://localhost:1527/Times";
+                Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+                
+                Statement stmt = DBConn.createStatement();
+                String update = "Update Itkstu.Schedule Set GroupName = \'" + groupName 
+                        + "\' Where TimeSlot = \'" + timeToRemove + "\'";               
+                
+                stmt.executeUpdate(update);
+                
+                
+            }
+            catch (SQLException e) 
+            {
+                System.err.println(e.getMessage());
+            }
+    }
+    
+}

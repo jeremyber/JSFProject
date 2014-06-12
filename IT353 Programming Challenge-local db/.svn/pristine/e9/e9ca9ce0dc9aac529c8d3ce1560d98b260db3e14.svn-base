@@ -1,0 +1,52 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import DAO.CartDAO;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author it3530103
+ */
+public class Cart 
+{
+    private ArrayList<ListingBean> items;
+    
+    public Cart()
+    {
+        items = new ArrayList<ListingBean>();
+    }
+    
+   
+    public int getNumItemsInCart()
+    {
+        return items.size();
+    }
+    
+    public String displayItemsInCart()
+    {
+         String itemList = "<h1>Cart</h1><table border=\"2\">";
+        for(int i = 0; i<items.size(); i++)
+        {
+            int numItem = i+1;
+            itemList+="<tr><td>"+ numItem + ")<br> Listing Title: " + items.get(i).getTitle()+ "<br></td></tr>";
+        }
+        
+        if(itemList.equals("<h1>Cart</h1><table border=\"2\">")) //if no items in cart
+            return "You have no items in your cart.</table>";
+        else
+            return itemList +="</table>";
+       
+    }
+    
+    public String addToCart(ListingBean listing)
+    {
+        items.add(listing);
+        if(CartDAO.addItem(listing))
+            return "Listing added to cart!";
+        return "Could not add listing to cart. Sorry.";
+    }
+}

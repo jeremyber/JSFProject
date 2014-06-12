@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Illinois Agland Services Inc. | Schedule an Appointment</title>
+    </h:head>
+    
+    <f:event type="preRenderView" listener="#{scheduleController.changeEmail(userController.currentEmail)}"/>
+    
+    <h:body>
+        <link rel="stylesheet" type="text/css" href="./styles/primary.css"/>
+        
+        <!--Global Header -->
+        <div id="header">
+            <ui:insert name="header" >
+		  <ui:include src="./header.xhtml" />
+            </ui:insert>
+	</div>
+
+        <div align="center" class="site">
+            <div class ="results" style="width: 500px; color: #3a6cb3; font-family: Arial, Helvetica, sans-serif;">
+                <h2>Available Times</h2>
+            <h:form id="timeslotForm">
+            <h:outputText id="results" value="#{scheduleController.timeslots}" escape="false">
+            </h:outputText>
+
+            <br/>
+                Pick a time! Type in an available time slot ID...<br/>
+                Time Slot ID: <h:inputText id="timeslotID" value="#{scheduleController.chosenID}">
+                </h:inputText><br/>
+
+                <h:commandButton id="submit" value="Sign Up!">
+                    <f:ajax event="click" execute="timeslotForm" render="statuscode results" listener="#{scheduleController.takeTimeSlot}"/>
+                </h:commandButton><br/>
+
+                <h:outputText id="statuscode" escape="false" value="#{scheduleController.status}">
+                </h:outputText>
+            </h:form>
+            </div>
+        </div>
+        
+    </h:body>
+</html>

@@ -1,0 +1,38 @@
+
+div.loginPanel { 
+    line-height: 95%;
+    padding: 10px 15px 10px 15px;
+    
+    border: 2px solid;
+    border-radius: 25px;
+    
+    margin-left:auto;
+    margin-right:auto;
+    width: 25%;  
+    
+    box-shadow: 7px 7px 3px #699cb3;
+    background: #cfdffa;
+        
+    font-weight: 600;    
+}
+
+div.loginMain {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2a6092;
+}
+
+div.results {
+    padding: 5px 5px;
+    border: 2px solid;
+    box-shadow: 7px 7px 3px #699cb3;
+ }
+
+div.nobreaks {
+    line-height:10%;
+}
+
+a.loginPanel:link {text-decoration:none; color: #434649;}
+a.loginPanel:visited {text-decoration:none; color: #434649;}
+a.loginPanel:hover {text-decoration:underline; color: #299dbf;}
+a.loginPanel:active {text-decoration:underline; color: #299dbf;} 
+

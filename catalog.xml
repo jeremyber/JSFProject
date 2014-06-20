@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://gfish.it.ilstu.edu:8080/ISUZillowWebService/ISUZillowWebService?wsdl" uri="src/conf/xml-resources/web-service-references/ISUZillowWebService/wsdl/gfish.it.ilstu.edu_8080/ISUZillowWebService/ISUZillowWebService.wsdl"/>
+    <system systemId="http://gfish.it.ilstu.edu:8080/ISUZillowWebService/ISUZillowWebService?xsd=1" uri="src/conf/xml-resources/web-service-references/ISUZillowWebService/wsdl/gfish.it.ilstu.edu_8080/ISUZillowWebService/ISUZillowWebService.xsd_1.xsd"/>
+    <system systemId="http://ws.strikeiron.com/MapQuestBasicMap?WSDL" uri="src/conf/xml-resources/web-service-references/MapQuestBasicMap/wsdl/ws.strikeiron.com/MapQuestBasicMap.wsdl"/>
+    <system systemId="http://gfish.it.ilstu.edu:8080/ISUGoogleMaps/ISUGoogleMapsService?wsdl" uri="src/conf/xml-resources/web-service-references/ISUGoogleMapsService/wsdl/gfish.it.ilstu.edu_8080/ISUGoogleMaps/ISUGoogleMapsService.wsdl"/>
+    <system systemId="http://gfish.it.ilstu.edu:8080/ISUGoogleMaps/ISUGoogleMapsService?xsd=1" uri="src/conf/xml-resources/web-service-references/ISUGoogleMapsService/wsdl/gfish.it.ilstu.edu_8080/ISUGoogleMaps/ISUGoogleMapsService.xsd_1.xsd"/>
+</catalog>
